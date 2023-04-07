@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "833845765497",
+    "project_id": "instagram-kotlin-1deff",
+    "storage_bucket": "instagram-kotlin-1deff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833845765497:android:c5d2e561c082ec823ebba8",
+        "android_client_info": {
+          "package_name": "com.joaoparedes.instagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833845765497-mvioe3jgbl4lhurtsaklks1hri2els39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwl5EpA6o4IUQFEd0us992ZPDnv588GF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833845765497-mvioe3jgbl4lhurtsaklks1hri2els39.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

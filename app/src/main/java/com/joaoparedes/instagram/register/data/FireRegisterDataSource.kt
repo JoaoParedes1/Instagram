@@ -98,7 +98,7 @@ class FireRegisterDataSource : RegisterDataSource {
                                             callback.onSuccess()
                                         }
                                         .addOnFailureListener { exception ->
-                                            callback.onFailure(exception.message ?: "Erro interno no servidor")
+                                            callback.onFailure(exception.message ?: "Falha ao atualizar a foto")
                                         }
                                         .addOnCompleteListener {
                                             callback.onComplete()
@@ -107,10 +107,9 @@ class FireRegisterDataSource : RegisterDataSource {
                             }
                     }
 
-                callback.onSuccess()
             }
             .addOnFailureListener { exception ->
-                callback.onFailure(exception.message ?: "Erro interno no servidor")
+                callback.onFailure(exception.message ?: "Falha ao subir a foto")
             }
     }
 }

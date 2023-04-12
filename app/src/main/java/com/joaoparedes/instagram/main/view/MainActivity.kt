@@ -1,5 +1,6 @@
 package com.joaoparedes.instagram.main.view
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,11 +16,13 @@ import com.joaoparedes.instagram.post.view.AddFragment
 import com.joaoparedes.instagram.common.extension.replaceFragment
 import com.joaoparedes.instagram.databinding.ActivityMainBinding
 import com.joaoparedes.instagram.home.view.HomeFragment
+import com.joaoparedes.instagram.main.LogoutListener
 import com.joaoparedes.instagram.profile.view.ProfileFragment
 import com.joaoparedes.instagram.search.view.SearchFragment
+import com.joaoparedes.instagram.splash.view.SplashActivity
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener
-    , AddFragment.AddListener, SearchFragment.SearchListener {
+    , AddFragment.AddListener, SearchFragment.SearchListener, LogoutListener, ProfileFragment.FollowListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -128,5 +131,27 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             addToBackStack(null)
             commit()
         }
+    }
+
+    override fun followeUpdated() {
+        homeFragment.presenter.clear()
+
+        if(supportFragmentManager.findFragmentByTag(profileFragment.javaClass.simpleName) != null) {
+            profileFragment.presenter.clear()
+        }
+    }
+
+    override fun logout() {
+        homeFragment.presenter.clear()
+        homeFragment.presenter.logout()
+
+        if(supportFragmentManager.findFragmentByTag(profileFragment.javaClass.simpleName) != null) {
+            profileFragment.presenter.clear()
+        }
+
+        val intent = Intent(baseContext ,SplashActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

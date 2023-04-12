@@ -2,12 +2,12 @@ package com.joaoparedes.instagram.home.data
 
 import com.joaoparedes.instagram.common.base.RequestCallback
 import com.joaoparedes.instagram.common.model.Post
-import com.joaoparedes.instagram.common.model.UserAuth
-import java.lang.UnsupportedOperationException
+import kotlin.UnsupportedOperationException
 
 interface HomeDataSource {
 
+    fun logout() { throw UnsupportedOperationException() }
     fun fetchFeed(userUUID: String, callback: RequestCallback<List<Post>>)
-    fun fetchSession(): UserAuth { throw UnsupportedOperationException() }
+    fun fetchSession(): String { throw UnsupportedOperationException() }
     fun putFeed(response: List<Post>?) { throw UnsupportedOperationException() }
 }

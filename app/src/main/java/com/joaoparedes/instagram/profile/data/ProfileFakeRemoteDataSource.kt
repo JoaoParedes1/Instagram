@@ -5,23 +5,24 @@ import android.os.Looper
 import com.joaoparedes.instagram.common.base.RequestCallback
 import com.joaoparedes.instagram.common.model.Database
 import com.joaoparedes.instagram.common.model.Post
+import com.joaoparedes.instagram.common.model.User
 import com.joaoparedes.instagram.common.model.UserAuth
 
 class ProfileFakeRemoteDataSource: ProfileDataSource {
-    override fun fetchUserProfile(userUUID: String, callback: RequestCallback<Pair<UserAuth, Boolean?>>) {
+    override fun fetchUserProfile(userUUID: String, callback: RequestCallback<Pair<User, Boolean?>>) {
         Handler(Looper.getMainLooper()).postDelayed({
 
             val userAuth = Database.usersAuth.firstOrNull { userUUID == it.uuid }
 
             if (userAuth != null) {
                 if (userAuth == Database.sessionAuth) {
-                    callback.onSuccess(Pair(userAuth, null))
+//                    callback.onSuccess(Pair(userAuth, null))
                 } else {
                     val following = Database.followers[Database.sessionAuth!!.uuid]
 
                     val destUser = following?.firstOrNull { it == userUUID }
 
-                    callback.onSuccess(Pair(userAuth, destUser != null))
+//                    callback.onSuccess(Pair(userAuth, destUser != null))
                 }
 
             } else {

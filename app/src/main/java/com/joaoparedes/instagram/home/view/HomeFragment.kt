@@ -1,5 +1,6 @@
 package com.joaoparedes.instagram.home.view
 
+import android.content.Context
 import android.view.*
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import com.joaoparedes.instagram.common.model.Post
 import com.joaoparedes.instagram.databinding.FragmentHomeBinding
 import com.joaoparedes.instagram.home.Home
 import com.joaoparedes.instagram.home.presenter.HomePresenter
+import com.joaoparedes.instagram.main.LogoutListener
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, Home.Presenter>(
     R.layout.fragment_home,
@@ -18,6 +20,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, Home.Presenter>(
 
     override lateinit var presenter: Home.Presenter
     private val adapter = FeedAdapter()
+    private var logoutListener: LogoutListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is LogoutListener) {
+            logoutListener = context
+        }
+    }
+
+    override fun setupPresenter() {
+        presenter = HomePresenter(this, DependencyInjector.homeRepository())
+    }
 
     override fun setupViews() {
         binding?.homeRv?.layoutManager = LinearLayoutManager(requireContext())
@@ -25,11 +39,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, Home.Presenter>(
 
         presenter.fetchFeed()
     }
-
-    override fun setupPresenter() {
-        presenter = HomePresenter(this, DependencyInjector.homeRepository())
-    }
-
     override fun getMenu() = R.menu.menu_profile
 
     override fun showProgress(enabled: Boolean) {
@@ -50,6 +59,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, Home.Presenter>(
         binding?.homeRv?.visibility = View.VISIBLE
         adapter.items = posts
         adapter.notifyDataSetChanged()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_logout -> {
+                logoutListener?.logout()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

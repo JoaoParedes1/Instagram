@@ -5,6 +5,7 @@ import com.joaoparedes.instagram.R
 import com.joaoparedes.instagram.common.base.RequestCallback
 import com.joaoparedes.instagram.common.model.Database
 import com.joaoparedes.instagram.common.model.Post
+import com.joaoparedes.instagram.common.model.User
 import com.joaoparedes.instagram.common.model.UserAuth
 import com.joaoparedes.instagram.profile.Profile
 import com.joaoparedes.instagram.profile.data.ProfileRepository
@@ -17,8 +18,8 @@ class ProfilePresenter(
 
     override fun fetchUserProfile(uuid: String?){
         view?.showProgress(true)
-        repository.fetchUserProfile(uuid, object : RequestCallback<Pair<UserAuth, Boolean?>> {
-            override fun onSuccess(data: Pair<UserAuth, Boolean?>) {
+        repository.fetchUserProfile(uuid, object : RequestCallback<Pair<User, Boolean?>> {
+            override fun onSuccess(data: Pair<User, Boolean?>) {
                 view?.displayUserProfile(data)
             }
 
@@ -55,7 +56,13 @@ class ProfilePresenter(
 
     override fun followUser(uuid: String?, follow: Boolean) {
         repository.followUser(uuid, follow, object : RequestCallback<Boolean> {
-            override fun onSuccess(data: Boolean) { }
+            override fun onSuccess(data: Boolean) {
+                fetchUserProfile(uuid)
+
+                if(data) {
+                    view?.followUpdated()
+                }
+            }
 
             override fun onFailure(message: String) { }
 

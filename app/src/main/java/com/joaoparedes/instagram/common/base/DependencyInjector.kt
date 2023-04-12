@@ -4,10 +4,11 @@ import android.content.Context
 import com.joaoparedes.instagram.add.data.AddFakeRemoteDataSource
 import com.joaoparedes.instagram.add.data.AddLocalDataSource
 import com.joaoparedes.instagram.add.data.AddRepository
+import com.joaoparedes.instagram.add.data.FireAddDataSource
 import com.joaoparedes.instagram.home.data.FeedMemoryCache
 import com.joaoparedes.instagram.home.data.HomeDataSourceFactory
 import com.joaoparedes.instagram.home.data.HomeRepository
-import com.joaoparedes.instagram.login.data.FakeDataSource
+import com.joaoparedes.instagram.login.data.FireLoginDataSource
 import com.joaoparedes.instagram.login.data.LoginRepository
 import com.joaoparedes.instagram.post.data.PostLocalDataSource
 import com.joaoparedes.instagram.post.data.PostRepository
@@ -15,26 +16,25 @@ import com.joaoparedes.instagram.profile.data.PostListMemoryCache
 import com.joaoparedes.instagram.profile.data.ProfileDataSourceFactory
 import com.joaoparedes.instagram.profile.data.ProfileMemoryCache
 import com.joaoparedes.instagram.profile.data.ProfileRepository
-import com.joaoparedes.instagram.register.data.FakeRegisterDataSource
 import com.joaoparedes.instagram.register.data.FireRegisterDataSource
 import com.joaoparedes.instagram.register.data.RegisterRepository
-import com.joaoparedes.instagram.search.data.SearchFakeRemoteDataSource
+import com.joaoparedes.instagram.search.data.FireSearchDataSource
 import com.joaoparedes.instagram.search.data.SearchRepository
-import com.joaoparedes.instagram.splash.data.FakeLocalDataSource
+import com.joaoparedes.instagram.splash.data.FireSplashDataSource
 import com.joaoparedes.instagram.splash.data.SplashRepository
 
 object DependencyInjector {
 
     fun splashRepository() : SplashRepository {
-        return SplashRepository(FakeLocalDataSource())
+        return SplashRepository(FireSplashDataSource())
     }
 
     fun loginRepository() : LoginRepository {
-        return LoginRepository(FakeDataSource())
+        return LoginRepository(FireLoginDataSource())
     }
 
     fun registerEmailRepository() : RegisterRepository {
-        return RegisterRepository(FakeRegisterDataSource())
+        return RegisterRepository(FireRegisterDataSource())
     }
 
     fun profileRepository() : ProfileRepository {
@@ -46,7 +46,7 @@ object DependencyInjector {
     }
 
     fun AddRepository() : AddRepository {
-        return AddRepository(AddFakeRemoteDataSource(), AddLocalDataSource())
+        return AddRepository(FireAddDataSource(), AddLocalDataSource())
     }
 
     fun PostRepository(context: Context) : PostRepository {
@@ -54,7 +54,7 @@ object DependencyInjector {
     }
 
     fun SearchRepository() : SearchRepository {
-        return SearchRepository(SearchFakeRemoteDataSource())
+        return SearchRepository(FireSearchDataSource())
     }
 
 }

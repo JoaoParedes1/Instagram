@@ -2,6 +2,9 @@ package com.joaoparedes.instagram.register.view
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -29,6 +32,15 @@ class RegisterEmailFragment : Fragment(R.layout.fragment_register_email), Regist
 
 
         binding?.let {
+
+            when(resources.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    binding?.registerImgLogo?.imageTintList = ColorStateList.valueOf(Color.WHITE)
+                }
+                Configuration.UI_MODE_NIGHT_NO -> {
+                }
+            }
+
             with(it) {
                 registerTxtLogin.setOnClickListener {
                     activity?.finish()

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?colorOnPrimary">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,14 +36,14 @@
                 style="@style/Theme.Instagram.TextViewBase.Form"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/photo_register_title"
-                android:textColor="@color/black"
+                android:textColor="?colorPrimary"
                 android:textSize="24sp" />
 
             <TextView
                 style="@style/Theme.Instagram.TextViewBase.Form"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/photo_register_subtitle"
-                android:textColor="@color/black" />
+                android:textColor="?colorPrimary" />
 
 
             <com.joaoparedes.instagram.common.view.LoadingButton
